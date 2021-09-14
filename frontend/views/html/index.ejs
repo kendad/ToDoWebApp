@@ -4,15 +4,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>TO-DO-APP</title>
 </head>
 <body>
     <h1>Hi there MFFF</h1>
     <br>
     <br>
     <% jsonData.forEach((data)=>{ %>
-        <p><%= data.id %></p>
         <h1><%= data.title %></h1>
+        <a href="/edit-task/<%= data.id %>">Update</a>
     <% }) %>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <form action="/add-task" method="POST">
+    <h3>Add New Task</h3>
+    <input type="text" name="title" placeholder="Enter Task">
+    <button type="submit">+</button>
+    </form>
+
+
 </body>
 </html>
