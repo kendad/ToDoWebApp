@@ -90,7 +90,7 @@ app.post('/edit-task/:TaskID/:ownersID',(req,res)=>{
             'Authorization':'Token '+req.cookies['Token']
         }
     }).then((response)=>{
-        res.redirect('/')
+        res.redirect('/'+response.data.id)
     }).catch((err)=>{
         console.log(err)
     })
