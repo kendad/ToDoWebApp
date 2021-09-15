@@ -29,7 +29,7 @@ class ViewCreateNoteSerializer(serializers.ModelSerializer):
 class NoteUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model=Note
-        fields=('title','description','section')
+        fields=('id','title','description','section')
 
 #########
 '''GET'''
