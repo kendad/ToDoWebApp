@@ -8,8 +8,22 @@
 </head>
 <body>
     <h1>EDIT Note</h1>
-        <h3><%= jsonData.title %></h3>
-        <h3><%= jsonData.description %></h3>
-        <h3><%= jsonData.section %></h3>
+        <form action="/edit-note/<%= jsonData.id %>/" method="POST">
+            <input type="text" value="<%= jsonData.title %>" name="title">
+            <input type="text" value="<%= jsonData.description %>" name="description">
+            <select name="section">
+                <option value="1" selected>Next Up</option>
+                <option value="2">In Progress</option>
+                <option value="3">Completed</option>
+            </select>
+            <button type="submit">Update</button>
+        </form>
+        <br>
+        <br>
+        <br>
+        <br>
+        <form action="/delete-note/<%= jsonData.id %>" method="POST">
+            <button type="submit">Delete X</button>
+        </form>
 </body>
 </html>

@@ -180,6 +180,20 @@ app.post('/edit-note/:NoteID/',(req,res)=>{
     })
 })
 
+app.post('/delete-note/:NoteID',(req,res)=>{
+    axios.delete(api_url+'edit-note/'+req.params.NoteID,
+    {
+        headers:{
+            'Content-Type':'application/json',
+            'Authorization':'Token '+req.cookies['Token']
+        }
+    }).then((response)=>{
+        res.redirect('/')
+    }).catch((err)=>{
+        console.log(err)
+    })
+})
+
 
 //LOGIN
 app.get('/login',(req,res)=>{
