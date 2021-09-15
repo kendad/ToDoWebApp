@@ -12,20 +12,21 @@ app.use(cookieParser())
 api_url='http://localhost:8000/api/v1/'
 
 //HOME
-app.get('/', async (req,res)=>{
+app.get('/', (req,res)=>{
     axios.get(api_url,{
         headers:{
             'Authorization':'Token '+req.cookies['Token']
         }
     }).then((response)=>{
         res.render('html/index',{'jsonData':response.data})
+
     }).catch((err)=>{
         res.redirect('/login')
     })
 
 })
 
-//EDIT-TASK
+//TASK
 app.get('/edit-task/:TaskID',(req,res)=>{
     
     var users_list=null
@@ -98,6 +99,75 @@ app.post('/edit-task/:TaskID/:ownersID',(req,res)=>{
 app.post('/delete-task/:TaskID',(req,res)=>{
 
     axios.delete(api_url+'edit-task/'+req.params.TaskID,
+    {
+        headers:{
+            'Content-Type':'application/json',
+            'Authorization':'Token '+req.cookies['Token']
+        }
+    }).then((response)=>{
+        res.redirect('/')
+    }).catch((err)=>{
+        console.log(err)
+    })
+})
+
+//NOTE
+app.get('/note/:TaskID/',(req,res)=>{
+    axios.get(api_url+'note/'+req.params.TaskID,
+    {
+        headers:{
+            'Content-Type':'application/json',
+            'Authorization':'Token '+req.cookies['Token']
+        }
+    }).then((response)=>{
+
+       res.render('html/note',{'jsonData':response.data},(err,html)=>{
+           res.send(html)
+       })
+    }).catch((err)=>{
+        console.log(err)
+    })
+})
+
+app.post('/add-note/:TaskID/',(req,res)=>{
+    axios.post(api_url+'note/'+req.params.TaskID,
+    {
+        'title':req.body.title,
+        'description':req.body.description
+    },
+    {
+        headers:{
+            'Content-Type':'application/json',
+            'Authorization':'Token '+req.cookies['Token']
+        }
+    }).then((response)=>{
+        res.redirect('/')
+    }).catch((err)=>{
+        console.log(err)
+    })
+})
+
+app.get('/edit-note/:NoteID/',(req,res)=>{
+    axios.get(api_url+'edit-note/'+req.params.NoteID,
+    {
+        headers:{
+            'Content-Type':'application/json',
+            'Authorization':'Token '+req.cookies['Token']
+        }
+    }).then((response)=>{
+       res.render('html/edit-note',{'jsonData':response.data})
+    }).catch((err)=>{
+        console.log(err)
+    })
+})
+
+app.post('/edit-note/:NoteID/',(req,res)=>{
+    axios.patch(api_url+'edit-note/'+req.params.NoteID,
+    {
+        'title':req.body.title,
+        'description':req.body.description,
+        'section':req.body.section
+    },
     {
         headers:{
             'Content-Type':'application/json',

@@ -1,0 +1,9 @@
+<% if(jsonData.length===0){ %>
+<h1 style="color: red;">Nothing to see here</h1>
+<% } else { %>
+<% jsonData.forEach((data)=>{ %>
+    <h3 style="color: purple;"><%= data.title %></h3>
+    <p><%= data.description %></p>
+    <a href="/edit-note/<%= data.id %>">Update</a>
+<% }) %>
+<% } %>

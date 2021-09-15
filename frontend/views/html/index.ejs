@@ -7,12 +7,23 @@
     <title>TO-DO-APP</title>
 </head>
 <body>
+    <!-- TASK -->
     <h1>Hi there MFFF</h1>
     <br>
     <br>
     <% jsonData.forEach((data)=>{ %>
-        <h1><%= data.title %></h1>
+        <!-- <h1><%= data.title %></h1> -->
+        <button class="see-notes" value="<%= data.id %>"><%= data.title %></button>
+        <br>
+        <form action="/add-note/<%= data.id %>" method="POST">
+            <h3>Add New Note</h3>
+            <input type="text" name="title" placeholder="Enter Note">
+            <input type="text" name="description" placeholder="Description">
+            <button type="submit">+</button>
+        </form>
+        <br>
         <a href="/edit-task/<%= data.id %>">Update</a>
+        <br>
     <% }) %>
     <br>
     <br>
@@ -25,6 +36,14 @@
     <button type="submit">+</button>
     </form>
 
+    <!-- NOTES -->
+    <hr>
+    <hr>
+    <div id="notes-container"></div>
 
+    <!-- CHAT -->
+    <!-- Add Stuff Here Later -->
+
+<script src="/scripts/index.js"></script>
 </body>
 </html>
