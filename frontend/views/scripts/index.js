@@ -13,7 +13,6 @@ document.querySelectorAll('.see-notes').forEach((item)=>{
 })
 
 window.onload=function(){
-    console.log(window.localStorage.getItem("noteID"))
     if(window.localStorage.getItem("noteID")!==null){
         var note_id=window.localStorage.getItem("noteID")
     }else{
@@ -25,6 +24,7 @@ window.onload=function(){
             document.getElementById('notes-container').innerHTML=this.responseText
         }
     }
+    document.cookie="NoteID="+note_id
     xhttp.open('GET',"/note/"+note_id,true)
     xhttp.send()
 }
@@ -35,5 +35,6 @@ document.querySelectorAll('.see-notes').forEach((item)=>{
            window.localStorage.removeItem("removeID")
        }
        window.localStorage.setItem("noteID",item.value)
+       document.cookie="NoteID="+item.value
     })
 })

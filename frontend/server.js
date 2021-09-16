@@ -4,12 +4,17 @@ const app = express()
 const path=require('path')
 const cookieParser=require('cookie-parser')
 
+const cors=require('cors')
+const socketio=require('socket.io')
+
 app.set('view engine','ejs')
 app.use(express.static(path.join(__dirname,'views')))
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
+app.use(cors({credentials: true, origin: true}))
 
-api_url='http://localhost:8000/api/v1/'
+//
+const api_url='http://localhost:8000/api/v1/'
 
 //HOME
 app.get('/', (req,res)=>{
@@ -243,4 +248,35 @@ app.post('/register',(req,res)=>{
     })
 })
 
-app.listen(process.env.PORT||5000)
+const expressServer=app.listen(process.env.PORT||5000)
+const io=socketio(expressServer)
+
+io.on('connection',(socket)=>{
+    var result=null
+    var room_id=null
+    test_string=socket.handshake.headers.cookie.split(';')
+    test_string.forEach((data)=>{
+        if(data.match(/NoteID=/g)!==null){
+            result=data
+        }
+    })
+    if(result==null){
+        room_id=null
+    }else{
+        room_id=result.substring(result.indexOf('=')+1)
+    }
+
+
+    socket.join(room_id)
+    
+    //intial handshake
+    io.to(room_id).emit('messageFromServer','this is from server')
+    socket.on('messageFromClient',(msg)=>{
+        console.log(msg)
+    })
+    
+    //message received from clients
+    socket.on('messageToServer',(msg)=>{
+        io.to(room_id).emit('messageToClient',{text:msg.text})
+    })
+})
