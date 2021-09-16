@@ -95,7 +95,7 @@ app.post('/edit-task/:TaskID/:ownersID',(req,res)=>{
             'Authorization':'Token '+req.cookies['Token']
         }
     }).then((response)=>{
-        res.redirect('/'+response.data.id)
+        res.redirect('/')
     }).catch((err)=>{
         console.log(err)
     })
@@ -278,5 +278,10 @@ io.on('connection',(socket)=>{
     //message received from clients
     socket.on('messageToServer',(msg)=>{
         io.to(room_id).emit('messageToClient',{text:msg.text})
+    })
+
+    //image received from clients
+    socket.on('imageFromClient',(img)=>{
+        io.to(room_id).emit('imageFromServer',{image:img})
     })
 })
