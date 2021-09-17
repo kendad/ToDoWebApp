@@ -299,6 +299,15 @@ io.on('connection',(socket)=>{
     //intial handshake
     io.to(room_id).emit('messageFromServer','this is from server')
     socket.on('messageFromClient',(msg)=>{
+
+        //Retreive the chat history from mongodb
+        try {
+            database.collection(room_id).find({}).toArray((err,result)=>{
+                io.to(room_id).emit('chatHistory',{chatHistory:result})
+            })
+        } catch (error) {
+            console.log(error)
+        }
         console.log(msg)
     })
     

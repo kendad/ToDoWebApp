@@ -45,6 +45,25 @@ socket.on('imageFromServer',(image)=>{
     image_container.appendChild(image_tag)
 })
 
+//On receiving Chat History from the server
+socket.on('chatHistory',(msg)=>{
+    document.getElementById('message-list').innerHTML=''
+    document.getElementById('image-container').innerHTML=''
+    msg.chatHistory.forEach((data)=>{
+        if("message" in data){
+            document.getElementById('message-list').innerHTML+=`<li> ${data.username}: ${data.message}</li>`
+        }
+        if("image" in data){
+            var image_container=document.getElementById('image-container')
+            image_tag=document.createElement('img')
+            image_tag.src=data.image
+            image_tag.title=data.username
+            image_container.appendChild(image_tag)
+        }
+        
+    })
+})
+
 //Function from W3School to get cookie by KEY
 function getCookie(cname) {
     let name = cname + "=";
