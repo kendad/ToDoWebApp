@@ -9,13 +9,18 @@ socket.on('messageFromServer',(dataFromServer)=>{
 document.getElementById('message-form').addEventListener('submit',(event)=>{
     event.preventDefault();
     const newMessage=document.getElementById('user-message').value
-    socket.emit('messageToServer',{text:newMessage})
+    socket.emit('messageToServer',{text:newMessage,username:getCookie("Username")})
     document.getElementById('user-message').value=''
 })
 
 //on receiveng any mssg from the server
 socket.on('messageToClient',(msg)=>{
-    document.getElementById('message-list').innerHTML+=`<li>${msg.text}</li>`
+    if(msg.sendersID===getCookie("Token")){
+        document.getElementById('message-list').innerHTML+=`<li> ${getCookie("Username")}: ${msg.text}</li>`
+    }else{
+        document.getElementById('message-list').innerHTML+=`<li> ${msg.otherUsername}: ${msg.text}</li>`
+    }
+    
 })
 
 //Sending Images
@@ -39,3 +44,20 @@ socket.on('imageFromServer',(image)=>{
     image_tag.src=image.image['imageData']
     image_container.appendChild(image_tag)
 })
+
+//Function from W3School to get cookie by KEY
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for(let i = 0; i <ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }

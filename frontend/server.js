@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(cors({credentials: true, origin: true}))
 
-//
+//UNIVERSAL VALUES
 const api_url='http://localhost:8000/api/v1/'
 
 //HOME
@@ -217,6 +217,7 @@ app.post('/login',(req,res)=>{
         }
     }).then((response)=>{
         res.cookie('Token',response.data.key)
+        res.cookie('Username',req.body.username)
         res.redirect('/')
     }).catch((err)=>{
         console.log(err)
@@ -242,6 +243,7 @@ app.post('/register',(req,res)=>{
         }
     }).then((response)=>{
         res.cookie('Token',response.data.key)
+        res.cookie('Username',req.body.username)
         res.redirect('/')
     }).catch((err)=>{
         res.redirect('/register')
@@ -252,6 +254,7 @@ const expressServer=app.listen(process.env.PORT||5000)
 const io=socketio(expressServer)
 
 io.on('connection',(socket)=>{
+    //get the noteID to create the room
     var result=null
     var room_id=null
     test_string=socket.handshake.headers.cookie.split(';')
@@ -266,6 +269,20 @@ io.on('connection',(socket)=>{
         room_id=result.substring(result.indexOf('=')+1)
     }
 
+    //Get the TokeID to know who's the user
+    var result=null
+    var senders_id=null
+    test_string=socket.handshake.headers.cookie.split(';')
+    test_string.forEach((data)=>{
+        if(data.match(/Token=/g)!==null){
+            result=data
+        }
+    })
+    if(result==null){
+        senders_id=null
+    }else{
+        senders_id=result.substring(result.indexOf('=')+1)
+    }
 
     socket.join(room_id)
     
@@ -277,7 +294,7 @@ io.on('connection',(socket)=>{
     
     //message received from clients
     socket.on('messageToServer',(msg)=>{
-        io.to(room_id).emit('messageToClient',{text:msg.text})
+        io.to(room_id).emit('messageToClient',{text:msg.text,sendersID:senders_id,otherUsername:msg.username})
     })
 
     //image received from clients
