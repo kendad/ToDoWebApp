@@ -31,7 +31,7 @@ document.getElementById('send-data').addEventListener('change',(event)=>{
 
      reader.onload = function(){
       var dataURL = reader.result;
-    socket.emit('imageFromClient',{imageData:dataURL})
+    socket.emit('imageFromClient',{imageData:dataURL,username:getCookie("Username")})
     };
 
     reader.readAsDataURL(imageFile.files[0])

@@ -3,6 +3,7 @@ const axios = require('axios')
 const app = express()
 const path=require('path')
 const cookieParser=require('cookie-parser')
+const MongoClient=require('mongodb').MongoClient
 
 const cors=require('cors')
 const socketio=require('socket.io')
@@ -15,6 +16,15 @@ app.use(cors({credentials: true, origin: true}))
 
 //UNIVERSAL VALUES
 const api_url='http://localhost:8000/api/v1/'
+const mongo_url='mongodb+srv://ken:ken12345678@cluster0.h0xcl.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+
+//Open MongoDb Connection
+var database=null
+MongoClient.connect(mongo_url, function(err, db) {
+    if (err) throw err;
+    database=db.db("chat")
+  });
+
 
 //HOME
 app.get('/', (req,res)=>{
@@ -294,11 +304,58 @@ io.on('connection',(socket)=>{
     
     //message received from clients
     socket.on('messageToServer',(msg)=>{
+        
+        //mongoDB
+        //check if collection exists
+        database.listCollections().toArray((err,info)=>{
+            var collection_names=[]
+            if(info.length===0){
+                return
+            }else{
+                info.forEach((data)=>{
+                    collection_names.push(data.name)
+                })
+            }
+            //if collection not exist create anew
+            if(collection_names.length===0 || collection_names.includes(room_id)===false){
+                database.createCollection(room_id,(err,res)=>{
+                    if(err) throw err;
+                    console.log("new Collection created")
+                })
+            }
+        })
+
+        //once the collection is verfied enter the data
+        database.collection(room_id).insertOne({message:msg.text,username:msg.username})
+
+        //socket
         io.to(room_id).emit('messageToClient',{text:msg.text,sendersID:senders_id,otherUsername:msg.username})
     })
 
     //image received from clients
     socket.on('imageFromClient',(img)=>{
+        //mongoDB
+        //check if collection exists
+        database.listCollections().toArray((err,info)=>{
+            var collection_names=[]
+            if(info.length===0){
+                return
+            }else{
+                info.forEach((data)=>{
+                    collection_names.push(data.name)
+                })
+            }
+            //if collection not exist create anew
+            if(collection_names.length===0 || collection_names.includes(room_id)===false){
+                database.createCollection(room_id,(err,res)=>{
+                    if(err) throw err;
+                    console.log("new Collection created")
+                })
+            }
+        })
+
+        //once the collection is verfied enter the data
+        database.collection(room_id).insertOne({image:img.imageData,username:img.username})
         io.to(room_id).emit('imageFromServer',{image:img})
     })
 })
