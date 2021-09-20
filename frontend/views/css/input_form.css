@@ -1,0 +1,91 @@
+.modal-background{
+    background-color: #513B56;
+    border-radius: 1vw;
+    box-shadow: 10px 10px rgba(82, 81, 116, 0.1);
+}
+
+.h1-text{
+    color: #fff;
+    font-size: 3vw;
+}
+
+.input-form-container{
+    height:50vh;
+    width:30vw;
+}
+
+.input-text {
+    border: none;
+    width:30vw;
+    background-color:#513B56;
+    border-bottom: 2px solid #fff;
+    color: #fff;
+}
+::placeholder{
+    color:#fff;
+}
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+.input-button{
+    border: none;
+    background-color: #513B56;
+    font-size:5vw;
+    color:#C492B1
+}
+
+.label-text{
+    color:#fff;
+}
+
+.add-user-container{
+    width:10vw;
+}
+
+.form-select-design{
+    border: none;
+    background-color: #513B56;
+    color: #fff;
+    font-size:1.5vw;
+}
+
+.input-button-text{
+    border: none;
+    background-color: #513B56;
+    font-size:1.5vw;
+    font-weight: bold;
+    font-weight: normal;
+    color:#C492B1
+}
+
+.register-user-text{
+    color:#fff;
+}
+
+.register-user-text-underlined{
+    color:#C492B1;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.center-div{
+    margin-top: 20vh;
+    margin-left: 30vw;
+    width:40vw
+}
+
+button, input[type="submit"]{
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.input-text-inline::placeholder {
+    color: black;
+}

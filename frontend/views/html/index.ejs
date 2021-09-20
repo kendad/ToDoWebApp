@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/input_form.css">
     <title>TO-DO-APP</title>
 </head>
 <body>
@@ -60,20 +61,21 @@
                 <h1 class="header-1">TO-DO-LIST</h1>
                 <div class="task-list-div overflow-auto d-flex flex-column">
                 <% jsonData.forEach((data)=>{ %>
-                    <!-- <h1><%= data.title %></h1> -->
-                    <button class="see-notes" value="<%= data.id %>"><%= data.title %></button>
-                    <br>
-                    <form action="/add-note/<%= data.id %>" method="POST">
-                        <h3>Add New Note</h3>
-                        <input type="text" name="title" placeholder="Enter Note">
-                        <input type="text" name="description" placeholder="Description">
-                        <button type="submit" class="add-note-button" value="<%= data.id %>">+</button>
-                    </form>
-                    <br>
-                    <a href="/edit-task/<%= data.id %>">Update</a>
-                    <br>
+                    <div class="task-list-card d-flex justify-content-around align-items-center" value="<%= data.id %>">
+                        <button class="see-notes header-2" value="<%= data.id %>"><%= data.title %></button>
+                        <p class="update-text-lower-1 align-self-end"><a href="/edit-task/<%= data.id %>" class="update-text-lower-1 align-self-end">Update</a></p>
+                    </div>
+                    <!-- ADD-NOTE-FORM -->
+                    <div class="d-flex justify-content-center">
+                        <form action="/add-note/<%= data.id %>" method="POST">
+                            <input type="text" name="title" placeholder="Enter Note" class="input-text-inline">
+                            <textarea type="text" name="description" placeholder="Description" class="input-text-inline"></textarea>
+                            <button type="submit" class="add-note-button" value="<%= data.id %>" style="font-size: 2vw;color: #fff;">+</button>
+                        </form>
+                    </div>
+                    
                 <% }) %>
-                <h1 class="header-1 header-design-1 align-self-center">+</h1>
+                <h1 class="header-1 header-design-1 align-self-center" data-bs-toggle="modal" data-bs-target="#addTaskModal">+</h1>
             </div>
             </div>
             <!-- NOTES-SECTION -->
@@ -94,6 +96,32 @@
             </div>
         </div>
     </div>
+
+
+    <!-- Input-form-design -->
+    <!-- Add Task Modal -->
+<div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content modal-background">
+        <div class="d-flex justify-content-center">
+          <img src="./icons/notes.png">
+          <h1 class="h1-text">ADD-TASK</h1>
+        </div>
+        <div class="d-flex justify-content-center">
+          <div class="d-flex flex-column justify-content-center input-form-container">
+            <form action="/add-task" method="POST">
+              <label for="title" class="label-text">Title:</label>
+              <input class="input-text" type="text" id="title" name="title" style="color: #fff;">
+              <div class="d-flex justify-content-center">
+                <button type="submit" class="input-button">+</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
