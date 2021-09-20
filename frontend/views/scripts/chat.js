@@ -16,9 +16,17 @@ document.getElementById('message-form').addEventListener('submit',(event)=>{
 //on receiveng any mssg from the server
 socket.on('messageToClient',(msg)=>{
     if(msg.sendersID===getCookie("Token")){
-        document.getElementById('message-list').innerHTML+=`<li> ${getCookie("Username")}: ${msg.text}</li>`
+        // document.getElementById('message-list').innerHTML+=`<li> ${getCookie("Username")}: ${msg.text}</li>`
+        document.getElementById('chat-container').innerHTML+=`<div class="my-message d-flex align-items-center push-left">
+        <img src="./icons/cute-pumpkin.png" class="img-fluid other-side-messsage-icon">
+        <p class="my-message-text">${getCookie("Username")}: ${msg.text}</p> </div>`
+        document.getElementById('chat-container').scrollTo(0,document.getElementById('chat-container').offsetHeight)
     }else{
-        document.getElementById('message-list').innerHTML+=`<li> ${msg.otherUsername}: ${msg.text}</li>`
+        // document.getElementById('message-list').innerHTML+=`<li> ${msg.otherUsername}: ${msg.text}</li>`
+        document.getElementById('chat-container').innerHTML+=`<div class="other-side-message d-flex align-items-center">
+        <img src="./icons/cute-hamster.png" class="img-fluid other-side-messsage-icon">
+        <p class="other-side-message-text">${msg.otherUsername}: ${msg.text}</p> </div>`
+        document.getElementById('chat-container').scrollTo(0,document.getElementById('chat-container').offsetHeight)
     }
     
 })
@@ -39,26 +47,52 @@ document.getElementById('send-data').addEventListener('change',(event)=>{
 
 //On Receiveing image from the server
 socket.on('imageFromServer',(image)=>{
-    var image_container=document.getElementById('image-container')
-    image_tag=document.createElement('img')
-    image_tag.src=image.image['imageData']
-    image_container.appendChild(image_tag)
+    if(image.image['username']===getCookie("Username")){
+        document.getElementById('chat-container').innerHTML+=`<div class="my-message-image d-flex align-items-center push-left">
+        <img src="./icons/cute-pumpkin.png" class="img-fluid other-side-messsage-icon">
+        <img src="${image.image['imageData']}" class="img-fluid img-thumbnail" title="${image.image['username']}">
+    </div>`
+    document.getElementById('chat-container').scrollTo(0,document.getElementById('chat-container').offsetHeight)
+    }else{
+        document.getElementById('chat-container').innerHTML+=`<div class="my-message-image d-flex align-items-center">
+        <img src="./icons/cute-hamster.png" class="img-fluid other-side-messsage-icon">
+        <img src="${image.image['imageData']}" class="img-fluid img-thumbnail" title="${image.image['username']}">
+    </div>`
+    document.getElementById('chat-container').scrollTo(0,document.getElementById('chat-container').offsetHeight)
+    }
 })
 
 //On receiving Chat History from the server
 socket.on('chatHistory',(msg)=>{
-    document.getElementById('message-list').innerHTML=''
-    document.getElementById('image-container').innerHTML=''
     msg.chatHistory.forEach((data)=>{
         if("message" in data){
-            document.getElementById('message-list').innerHTML+=`<li> ${data.username}: ${data.message}</li>`
+            // document.getElementById('message-list').innerHTML+=`<li> ${data.username}: ${data.message}</li>`
+            if(data['username']===getCookie("Username")){
+                document.getElementById('chat-container').innerHTML+=`<div class="my-message d-flex align-items-center push-left">
+        <img src="./icons/cute-pumpkin.png" class="img-fluid other-side-messsage-icon">
+        <p class="my-message-text">${data.username}: ${data.message}</p> </div>`
+        document.getElementById('chat-container').scrollTo(0,document.getElementById('chat-container').offsetHeight)
+            }else{
+                document.getElementById('chat-container').innerHTML+=`<div class="other-side-message d-flex align-items-center">
+        <img src="./icons/cute-hamster.png" class="img-fluid other-side-messsage-icon">
+        <p class="other-side-message-text">${data.username}: ${data.message}</p> </div>`
+        document.getElementById('chat-container').scrollTo(0,document.getElementById('chat-container').offsetHeight)
+            }
         }
         if("image" in data){
-            var image_container=document.getElementById('image-container')
-            image_tag=document.createElement('img')
-            image_tag.src=data.image
-            image_tag.title=data.username
-            image_container.appendChild(image_tag)
+            if(data['username']===getCookie("Username")){
+                document.getElementById('chat-container').innerHTML+=`<div class="my-message-image d-flex align-items-center push-left">
+                <img src="./icons/cute-pumpkin.png" class="img-fluid other-side-messsage-icon">
+                <img src="${data.image}" class="img-fluid img-thumbnail" title="${data.username}">
+            </div>`
+            document.getElementById('chat-container').scrollTo(0,document.getElementById('chat-container').offsetHeight)
+            }else{
+                document.getElementById('chat-container').innerHTML+=`<div class="my-message-image d-flex align-items-center">
+                <img src="./icons/cute-hamster.png" class="img-fluid other-side-messsage-icon">
+                <img src="${data.image}" class="img-fluid img-thumbnail" title="${data.username}">
+            </div>`
+            document.getElementById('chat-container').scrollTo(0,document.getElementById('chat-container').offsetHeight)
+            }
         }
         
     })

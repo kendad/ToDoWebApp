@@ -84,15 +84,24 @@
             </div>
             <!-- CHAT-SECTION -->
             <div class="col-2">
-                <div id="chat-container">
-                    <form id="message-form">
-                        <input type="text" id="user-message" placeholder="Enter Message"/>
-                        <input type="submit" value="Send!"/>
-                    </form>
-                    <input type="file" id="send-data" accept="image/*" value="SendData"/>
-                    <ul id="message-list"></ul>
-                    <div id="image-container"></div>
+                <h2 class="header-note-1">Chat</h2>
+                <div class="chat-section overflow-auto d-flex flex-column" id="chat-container">
+                    <!-- Dynamically-Add-Content-Here -->
                 </div>
+                    <div class="input-container d-flex justify-content-center">
+                        <div class="input-container d-flex justify-content-center">
+                                
+                        
+                        <form id="message-form">
+                            <input type="text" placeholder="Enter Message..." id="user-message">
+                            <input type="image" class="send-icon" src="../icons/send.png">
+                        </form>
+                        <label>
+                            <img src="./icons/attach.png" class="attach-icon">
+                            <input type="file" id="send-data" accept="image/*" value="SendData"/>
+                        </label>
+                    </div>
+                    </div>
             </div>
         </div>
     </div>
