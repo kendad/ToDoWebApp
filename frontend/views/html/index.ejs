@@ -4,15 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/index.css">
     <title>TO-DO-APP</title>
 </head>
 <body>
     <!-- TASK -->
-    <h1>Hi there MFFF</h1>
-    <br>
-    <br>
-    <% jsonData.forEach((data)=>{ %>
-        <!-- <h1><%= data.title %></h1> -->
+    <!-- <% jsonData.forEach((data)=>{ %>
         <button class="see-notes" value="<%= data.id %>"><%= data.title %></button>
         <br>
         <form action="/add-note/<%= data.id %>" method="POST">
@@ -34,15 +32,15 @@
     <h3>Add New Task</h3>
     <input type="text" name="title" placeholder="Enter Task">
     <button type="submit">+</button>
-    </form>
+    </form> -->
 
     <!-- NOTES -->
+    <!-- <hr>
     <hr>
-    <hr>
-    <div id="notes-container"></div>
+    <div id="notes-container"></div> -->
 
     <!-- CHAT -->
-    <hr>
+    <!-- <hr>
     <hr>
     <div id="chat-container">
         <form id="message-form">
@@ -52,8 +50,53 @@
         <input type="file" id="send-data" accept="image/*" value="SendData"/>
         <ul id="message-list"></ul>
         <div id="image-container"></div>
+    </div> -->
+
+    <!-- The Real Design Of the App -->
+    <div class="container-fluid">
+        <div class="row vh-100">
+            <!-- TASK-SECTION -->
+            <div class="col-2 d-flex flex-column justify-content-between task-section">
+                <h1 class="header-1">TO-DO-LIST</h1>
+                <div class="task-list-div overflow-auto d-flex flex-column">
+                <% jsonData.forEach((data)=>{ %>
+                    <!-- <h1><%= data.title %></h1> -->
+                    <button class="see-notes" value="<%= data.id %>"><%= data.title %></button>
+                    <br>
+                    <form action="/add-note/<%= data.id %>" method="POST">
+                        <h3>Add New Note</h3>
+                        <input type="text" name="title" placeholder="Enter Note">
+                        <input type="text" name="description" placeholder="Description">
+                        <button type="submit" class="add-note-button" value="<%= data.id %>">+</button>
+                    </form>
+                    <br>
+                    <a href="/edit-task/<%= data.id %>">Update</a>
+                    <br>
+                <% }) %>
+                <h1 class="header-1 header-design-1 align-self-center">+</h1>
+            </div>
+            </div>
+            <!-- NOTES-SECTION -->
+            <div class="col-8">
+                <div id="notes-container"></div>
+            </div>
+            <!-- CHAT-SECTION -->
+            <div class="col-2">
+                <div id="chat-container">
+                    <form id="message-form">
+                        <input type="text" id="user-message" placeholder="Enter Message"/>
+                        <input type="submit" value="Send!"/>
+                    </form>
+                    <input type="file" id="send-data" accept="image/*" value="SendData"/>
+                    <ul id="message-list"></ul>
+                    <div id="image-container"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/scripts/chat.js"></script>
 <script src="/scripts/index.js"></script>

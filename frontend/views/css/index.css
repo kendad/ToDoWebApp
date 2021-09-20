@@ -1,0 +1,218 @@
+/* Task-Section-CSS */
+.task-section{
+    background-color: #513B56;
+}
+
+.header-1{
+    font-size:2vw;
+    color:#fff;
+    margin-top: 5vh;
+    text-align: center;
+}
+
+.header-design-1{
+    background-color:rgba(255,255,255,0.1);
+    width: 6vw;
+    border-radius: 3vw;
+}
+
+.header-2{
+    font-size:1vw;
+    color:#525174;
+    text-align: center;
+}
+
+.task-list-image{
+    max-width: 1.5vw
+}
+
+.task-list-card{
+    background-color:#fff;
+    padding: 0.5vw;
+    border-radius: 20vw;
+    margin:1vw
+}
+
+.task-list-div{
+    max-height: 70vh;
+}
+.task-list-div::-webkit-scrollbar{
+    display:none
+}
+
+.update-text-lower-1{
+    color: #525174;
+    font-size: 0.6vw;
+    margin-left:0.3vw ;
+    text-decoration: underline;
+}
+
+
+/* /////////////////////////////////////////////////////////////////////// */
+/* Notes-Section */
+.note-image{
+    width:4vw
+}
+
+.header-note-1{
+    color: #525174;
+    font-size: 3vw;
+}
+
+.update-text-lower-2{
+    color: #525174;
+    font-size: 1vw;
+    margin-left:1vw ;
+    text-decoration: underline;
+}
+
+.note-section-header-text{
+    color: #525174;
+    font-size:2vw;
+    font-style: normal;
+}
+
+.note-section-header{
+    margin-top:4vh;
+}
+
+.note-card-section{
+    max-height: 70vh;
+}
+
+.note-card-section::-webkit-scrollbar{
+    display:none
+}
+
+.content-box{
+    width: 15vw;
+    background-color:#EFEFEF;
+    padding:1vw;
+    border-radius:2vw;
+    margin-top: 1vh;
+    box-shadow:3px 3px rgba(116, 107, 107, 0.2);
+}
+
+.content-box-header-1{
+    font-size: 2vw;
+    color:#525174;
+    font-weight: bold;
+}
+
+.content-box-header-2{
+    font-size: 1vw;
+    color:#525174;
+    font-weight: normal;
+}
+
+.content-box-update{
+    color: #525174;
+    text-decoration: underline;
+}
+
+
+.circle-next-up{
+    height: 20px;
+    width:20px;
+    border-radius:50%;
+    border: 1px solid red;
+}
+
+.circle-completed{
+    height: 20px;
+    width:20px;
+    border-radius:50%;
+    border: 1px solid green;
+}
+
+.add-note{
+    margin-top: 7vh;
+    border-radius: 10vw;
+    border: 1px dashed #525174;
+}
+
+/* /////////////////////////////////////////////////////////////////////// */
+/* Chat-Sections */
+
+.chat-section{
+    height:65vh;
+    margin-top: 10vh;
+}
+
+.chat-section::-webkit-scrollbar{
+    display:none
+}
+
+.other-side-message{
+    background-color:#525174;
+    width:10vw;
+    border-radius: 2vw;
+    padding:10px;
+    margin-top:10px;
+    box-shadow:2px 2px rgba(0,0,0,0.1);
+}
+
+.other-side-message-text{
+    color:white;
+    margin-top: 1vh;
+    font-weight: bold;
+    padding: 3px;
+}
+
+.other-side-messsage-icon{
+    width:3vw;
+    height:5vh;
+}
+
+.push-left{
+    margin-left: 5vw;
+}
+
+.my-message{
+    background-color:#EFEFEF;
+    width:10vw;
+    border-radius: 2vw;
+    padding:10px;
+    margin-top:10px;
+    box-shadow:2px 2px rgba(0,0,0,0.1);
+}
+
+.my-message-text{
+    color:#525174;
+    margin-top: 1vh;
+    padding: 3px;
+    font-weight: bold;
+}
+
+.my-message-image{
+    width:10vw;
+    border-radius: 2vw;
+    padding:10px;
+    margin-top:10px;
+}
+
+.input-container{
+    margin-top: 4.5vh;
+}
+
+input[type=text] {
+    border: none;
+    border-bottom: 2px solid #525174;
+    color: #525174;
+}
+::placeholder{
+    color:#525174
+}
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+
+.send-icon{
+    width: 1vw;
+    height: 2vh;
+}
+
+.attach-icon{
+    width: 2vw;
+    height: 3vh;
+}

@@ -1,9 +1,61 @@
 <% if(jsonData.length===0){ %>
 <h1 style="color: red;">Nothing to see here</h1>
 <% } else { %>
-<% jsonData.forEach((data)=>{ %>
-    <h3 style="color: purple;"><%= data.title %></h3>
-    <p><%= data.description %></p>
-    <a href="/edit-note/<%= data.id %>">Update</a>
-<% }) %>
+<div class="note-card-section overflow-auto d-flex justify-content-around">
+    <div class="next-up-section d-flex flex-column">
+        <p class="note-section-header-text">Next Up</p>
+        <% jsonData.forEach((data)=>{ %>
+            <% if(data.section===1){ %>
+                <div class="content-box">
+                    <div class="circle-next-up"></div>
+                    <div class="d-flex justify-content-center">
+                        <p class="content-box-header-1"><%= data.title %></p>
+                    </div>
+                    <p class="content-box-header-2"><%= data.description %></p>
+                    <div class="d-flex justify-content-center">
+                        <p class="content-box-update"><a href="/edit-note/<%= data.id %>">Update</a></p>
+                    </div>
+                </div>
+            <% } %>
+        <% }) %>
+    </div>
+    <div class="in-progress-section d-flex flex-column">
+        <p class="note-section-header-text">In Progress</p>
+        <% jsonData.forEach((data)=>{ %>
+            <% if(data.section===2){ %>
+                <div class="content-box">
+                    <div class="d-flex justify-content-between">
+                        <div class="circle-next-up"></div>
+                        <div class="circle-completed"></div>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <p class="content-box-header-1"><%= data.title %></p>
+                    </div>
+                    <p class="content-box-header-2"><%= data.description %></p>
+                    <div class="d-flex justify-content-center">
+                        <p class="content-box-update"><a href="/edit-note/<%= data.id %>">Update</a></p>
+                    </div>
+                </div>
+            <% } %>
+        <% }) %>
+    </div>
+    <div class="completed-section d-flex flex-column">
+        <p class="note-section-header-text">Completed</p>
+        <% jsonData.forEach((data)=>{ %>
+            <% if(data.section===3){ %>
+                <div class="content-box">
+                    <div class="circle-next-up"></div>
+                    <div class="d-flex justify-content-center">
+                        <p class="content-box-header-1"><%= data.title %></p>
+                    </div>
+                    <p class="content-box-header-2"><%= data.description %></p>
+                    <div class="d-flex justify-content-center">
+                        <p class="content-box-update"><a href="/edit-note/<%= data.id %>">Update</a></p>
+                    </div>
+                </div>
+            <% } %>
+        <% }) %>
+    </div>
+</div>
 <% } %>
+
